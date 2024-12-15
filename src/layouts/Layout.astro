@@ -1,3 +1,7 @@
+---
+const { background } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,9 +9,9 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Christian Smith Mantas</title>
 	</head>
-	<body>
+	<body style={`background-image: url(${background});`}>
 		<slot />
 	</body>
 </html>
@@ -16,7 +20,12 @@
 	html,
 	body {
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		padding: 0;
+		box-sizing: border-box;
+		height: 100dvh;
+		width: 100dvw;
+
+		background-position: center;
+		background-size: cover;
 	}
 </style>

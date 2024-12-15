@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+
+const { label, icon } = Astro.props;
+const itemId = label.replace(' ', '-');
+
+const test = () => console.log('hello');
+---
+
+<div data-desktop-item data-id={itemId} class="desktopItem-styled">
+  <div class="icon">
+    <img src={icon} alt={`${label} icon`} class="icon">
+  </div>
+  <div class="label">{label}</div>
+</div>
+
+<style>
+  .desktopItem-styled {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    .icon {
+      width: 84px;
+    }
+
+    .label {
+      color: #FFF;
+      font-weight: 600;
+      text-align: center;
+      text-transform: capitalize;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .desktopItem-styled {
+      .icon {
+        width: 48px;
+      }
+    }
+  }
+</style>

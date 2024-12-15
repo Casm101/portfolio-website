@@ -1,11 +1,76 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import DesktopItem from '../components/DesktopItem.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import '../styles/global.css';
 ---
 
-<Layout>
-	<Welcome />
+<Layout background="/wallpaper-01.jpg">
+	<div class="toolBar-styled">
+		<p>Christian Smith Mantas</p>
+		<div>
+			<span>Sun Dec 15</span>
+			<span>1:55:05 PM</span>
+		</div>
+	</div>
+	<div class="desktop-styled">
+		<div class="iconGrid-styled">
+			<DesktopItem label="work experience" icon="/folder-icon.png" />
+			<DesktopItem label="side projects" icon="/folder-icon.png" />
+			<DesktopItem label="side projects" icon="/folder-icon.png" />
+			<DesktopItem label="tomorrowland 2025" icon="/cd-icon.png" />
+		</div>
+	</div>
 </Layout>
+
+<style>
+	.toolBar-styled {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		height: 28px;
+		width: 100%;
+		padding: 0 14px;
+
+		backdrop-filter: blur(40px) saturate(3);
+		background: rgba(0, 0, 0, 0.5);
+		color: #FFF;
+
+		p {
+			font-weight: 600;
+		}
+	}
+
+	.desktop-styled {
+		flex: 1;
+		padding: 24px 12px;
+		height: 100%;
+		
+		.iconGrid-styled {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, 124px);
+			grid-template-rows: repeat(auto-fill, 108px);
+			grid-auto-flow: column;
+			column-gap: 16px;
+			row-gap: 24px;
+			direction: rtl;
+
+			height: 100%;
+		}
+	}
+</style>
+
+<script>
+	const desktopItems = document.querySelectorAll('[data-desktop-item]');
+
+	const onDesktopItemClick = (id: string) => {
+		console.log(`You double clicked on ${id} you sneeky pest.`);
+	};
+
+	desktopItems.forEach(item => {
+		const itemId = item.getAttribute('data-id');
+		item.addEventListener('dblclick', () => onDesktopItemClick(itemId as string));
+	})
+	
+</script>
