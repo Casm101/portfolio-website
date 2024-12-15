@@ -1,0 +1,37 @@
+---
+const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const currentDateTime = new Date();
+const dayOfWeek = daysOfWeek[currentDateTime.getDay()];
+const month = months[currentDateTime.getMonth()];
+const dayOfMonth = currentDateTime.getDate();
+
+const currentDate = `${dayOfWeek} ${month} ${dayOfMonth}`;
+---
+
+<div class="clock-styled">
+  <span class="clock-date">{currentDate}</span>
+  <span class="clock-time">21:15:05 PM</span>
+</div>
+
+<style>
+  .clock-styled {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+    font-variant-numeric: tabular-nums;
+    font-weight: 300;
+    cursor: default;
+  }
+</style>
+
+<script>
+  const clockTime = document.querySelector('.clock-time');
+  setInterval(() => {
+    const currentTime = new Date();
+    const meridiem = currentTime.getHours() >= 12 ? 'PM' : 'AM';
+    if (clockTime) clockTime.textContent = `${currentTime.toLocaleTimeString()} ${meridiem}`;
+  }, 1000);
+</script>

@@ -3,15 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import DesktopItem from '../components/DesktopItem.astro';
 
 import '../styles/global.css';
+import Clock from '../components/Clock.astro';
 ---
 
 <Layout background="/wallpaper-01.jpg">
 	<div class="toolBar-styled">
 		<p>Christian Smith Mantas</p>
-		<div>
-			<span>Sun Dec 15</span>
-			<span>1:55:05 PM</span>
-		</div>
+		<Clock />
 	</div>
 	<div class="desktop-styled">
 		<div class="iconGrid-styled">
@@ -68,8 +66,8 @@ import '../styles/global.css';
 	};
 
 	document.addEventListener('click', (event) => {
-		const desktopItem = event.target.closest('[data-desktop-item]');
-		document.querySelectorAll('.desktopItem-styled').forEach(item => item.classList.remove('selected'));
+		const desktopItem = (event.target as Element)?.closest('[data-desktop-item]');
+		document.querySelectorAll('[data-desktop-item]').forEach(item => item.classList.remove('selected'));
 
 		if (desktopItem) {
 			desktopItem.classList.add('selected');
@@ -77,9 +75,9 @@ import '../styles/global.css';
 	});
 
 	document.addEventListener('dblclick', event => {
-		const desktopItem = event.target.closest('[data-desktop-item]');
-		const itemId = desktopItem.getAttribute('data-id');
-		onDesktopItemDblClick(itemId as string);
+		const desktopItem = (event.target as Element)?.closest('[data-desktop-item]');
+		const itemId = desktopItem?.getAttribute('data-id');
+		desktopItem && onDesktopItemDblClick(itemId as string);
 	});
 	
 </script>
