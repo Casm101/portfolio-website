@@ -15,9 +15,10 @@ import '../styles/global.css';
 	</div>
 	<div class="desktop-styled">
 		<div class="iconGrid-styled">
+			<DesktopItem label="about me" type="image" icon="/profile-picture.jpeg" />
 			<DesktopItem label="work experience" icon="/folder-icon.png" />
 			<DesktopItem label="side projects" icon="/folder-icon.png" />
-			<DesktopItem label="side projects" icon="/folder-icon.png" />
+			<DesktopItem label="education" icon="/folder-icon.png" />
 			<DesktopItem label="tomorrowland 2025" icon="/cd-icon.png" />
 		</div>
 	</div>
@@ -62,15 +63,23 @@ import '../styles/global.css';
 </style>
 
 <script>
-	const desktopItems = document.querySelectorAll('[data-desktop-item]');
-
-	const onDesktopItemClick = (id: string) => {
+	const onDesktopItemDblClick = (id: string) => {
 		console.log(`You double clicked on ${id} you sneeky pest.`);
 	};
 
-	desktopItems.forEach(item => {
-		const itemId = item.getAttribute('data-id');
-		item.addEventListener('dblclick', () => onDesktopItemClick(itemId as string));
-	})
+	document.addEventListener('click', (event) => {
+		const desktopItem = event.target.closest('[data-desktop-item]');
+		document.querySelectorAll('.desktopItem-styled').forEach(item => item.classList.remove('selected'));
+
+		if (desktopItem) {
+			desktopItem.classList.add('selected');
+		}
+	});
+
+	document.addEventListener('dblclick', event => {
+		const desktopItem = event.target.closest('[data-desktop-item]');
+		const itemId = desktopItem.getAttribute('data-id');
+		onDesktopItemDblClick(itemId as string);
+	});
 	
 </script>

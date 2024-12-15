@@ -1,15 +1,24 @@
 ---
 import '../styles/global.css';
 
-const { label, icon } = Astro.props;
+const { label, icon, type } = Astro.props;
 const itemId = label.replace(' ', '-');
+
+let typeClass;
+switch (type) {
+  case 'image':
+    typeClass = 'image';
+    break;
+  default:
+    break;
+}
 
 const test = () => console.log('hello');
 ---
 
-<div data-desktop-item data-id={itemId} class="desktopItem-styled">
+<div data-desktop-item data-id={itemId} class={["desktopItem-styled", typeClass].join(' ')}>
   <div class="icon">
-    <img src={icon} alt={`${label} icon`} class="icon">
+    <img src={icon} alt={`${label} icon`} class="iconImage">
   </div>
   <div class="label">{label}</div>
 </div>
@@ -19,10 +28,17 @@ const test = () => console.log('hello');
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 4px;
 
     .icon {
       width: 84px;
+      aspect-ratio: 1 / 1;
+
+      .iconImage {
+        width: 100%;
+        object-fit: cover;
+      }
     }
 
     .label {
@@ -31,6 +47,22 @@ const test = () => console.log('hello');
       text-align: center;
       text-transform: capitalize;
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
+
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    &.image {
+      .icon {
+        width: 81px;
+        border: 3px solid #FFF;
+      }
+    }
+
+    &.selected {
+      .label {
+        background: rgb(41, 99, 217);
+      }
     }
   }
 
