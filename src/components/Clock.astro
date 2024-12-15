@@ -1,18 +1,6 @@
----
-const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-const currentDateTime = new Date();
-const dayOfWeek = daysOfWeek[currentDateTime.getDay()];
-const month = months[currentDateTime.getMonth()];
-const dayOfMonth = currentDateTime.getDate();
-
-const currentDate = `${dayOfWeek} ${month} ${dayOfMonth}`;
----
-
 <div class="clock-styled">
-  <span class="clock-date">{currentDate}</span>
-  <span class="clock-time">21:15:05 PM</span>
+  <span class="clock-date">Tue May 12</span>
+  <span class="clock-time">02:15:17 AM</span>
 </div>
 
 <style>
@@ -28,10 +16,25 @@ const currentDate = `${dayOfWeek} ${month} ${dayOfMonth}`;
 </style>
 
 <script>
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const clockDate = document.querySelector('.clock-date');
   const clockTime = document.querySelector('.clock-time');
+
   setInterval(() => {
-    const currentTime = new Date();
-    const meridiem = currentTime.getHours() >= 12 ? 'PM' : 'AM';
-    if (clockTime) clockTime.textContent = `${currentTime.toLocaleTimeString()} ${meridiem}`;
+    const currentDateTime = new Date();
+
+    // Date setting
+    const dayOfWeek = daysOfWeek[currentDateTime.getDay()];
+    const month = months[currentDateTime.getMonth()];
+    const dayOfMonth = currentDateTime.getDate();
+    const currentDate = `${dayOfWeek} ${month} ${dayOfMonth}`;
+
+    if (clockDate) clockDate.textContent = currentDate;
+
+    // Time Setting
+    const meridiem = currentDateTime.getHours() >= 12 ? 'PM' : 'AM';
+    if (clockTime) clockTime.textContent = `${currentDateTime.toLocaleTimeString()} ${meridiem}`;
   }, 1000);
 </script>
