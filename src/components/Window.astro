@@ -1,0 +1,118 @@
+---
+const { title } = Astro.props;
+const windowId = title.replace(' ', '-');
+---
+
+<div data-window-id={windowId} class="window-styled">
+  <div class="window-header">
+    <div class="traffic-lights">
+      <button data-light="red" class="light">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none"><path fill="#4D0000" d="M3.172 8.121a.5.5 0 1 0 .707.707L6 6.707l2.122 2.121a.5.5 0 0 0 .707-.707L6.707 6 8.83 3.878a.5.5 0 0 0-.707-.707L6 5.293 3.88 3.17a.5.5 0 1 0-.707.708l2.121 2.12z" style="fill: rgb(77, 0, 0);"></path></svg>
+      </button>
+      <button data-light="ambar" class="light disabled">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none"><path fill="#995700" d="M2 6a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 2 6" style="fill: rgb(153, 87, 0);"></path></svg>
+      </button>
+      <button data-light="green" class="light">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none"><path fill="#006500" d="M7.5 9 3 4.5v4a.5.5 0 0 0 .5.5zM4.5 3h4a.5.5 0 0 1 .5.5v4z" style="fill: rgb(0, 101, 0);"></path></svg>
+      </button>
+    </div>
+    <div class="header-title">{title}</div>
+  </div>
+  <div class="window-content"></div>
+</div>
+
+<style>
+  .window-styled {
+    position: absolute;
+    width: 525px;
+
+    border-radius: .5rem;
+    overflow: hidden;
+
+    transform: translateX(48px) translateY(48px);
+    pointer-events: all;
+
+    .window-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      height: 40px;
+      width: 100%;
+      padding: 0 1rem;
+      
+      background: #e4e4e4;
+      box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05) inset;
+
+      user-select: none;
+
+      .traffic-lights {
+        display: flex;
+        gap: .5rem;
+
+        .light {
+          position: relative;
+
+          height: 12px;
+          width: 12px;
+
+          background: #ccc;
+          border-radius: 100%;
+          border: 1px solid rgba(0, 0, 0, 0.06);
+
+          svg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            display: none;
+
+            margin-left: -6px;
+            margin-top: -6px;
+
+            width: 12px;
+            height: 12px;
+          }
+        }
+
+        &:hover .light:not(.disabled) {
+          &:nth-child(1) { background: #ff6159; &:active { background: #bf4942; }} 
+          &:nth-child(2) { background: #ffbd2e; &:active { background: #bf8e22; }} 
+          &:nth-child(3) { background: #28c941; &:active { background: #1d9730; }}
+
+          svg { display: block; }
+        }
+      }
+
+      .header-title {
+        position: absolute;
+        left: 84px;
+        right: 84px;
+
+        color: #999;
+        text-align: center;
+        text-transform: capitalize;
+      }
+    }
+
+    &.closed {
+      display: none;
+    }
+
+    &.selected {
+
+      .window-header {
+        .traffic-lights {
+          .light:not(.disabled) {
+            &:nth-child(1) { background: #ff6159; &:active { background: #bf4942; }} 
+            &:nth-child(2) { background: #ffbd2e; &:active { background: #bf8e22; }} 
+            &:nth-child(3) { background: #28c941; &:active { background: #1d9730; }}
+          }
+        }
+      }
+
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.25);
+
+      .header-title { color: #111; }
+    }
+  }
+</style>

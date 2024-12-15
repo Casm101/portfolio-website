@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Clock from '../components/Clock.astro';
 import DesktopItem from '../components/DesktopItem.astro';
+import Window from '../components/Window.astro';
 
 import '../styles/global.css';
-import Clock from '../components/Clock.astro';
 ---
 
 <Layout background="/wallpaper-01.jpg">
@@ -18,6 +19,12 @@ import Clock from '../components/Clock.astro';
 			<DesktopItem label="side projects" icon="/folder-icon.png" />
 			<DesktopItem label="education" icon="/folder-icon.png" />
 			<DesktopItem label="tomorrowland 2025" icon="/cd-icon.png" />
+		</div>
+		<div class="window-manager">
+			<Window title="about me" />
+			<Window title="work experience" />
+			<Window title="side projects" />
+			<Window title="education" />
 		</div>
 	</div>
 </Layout>
@@ -42,6 +49,7 @@ import Clock from '../components/Clock.astro';
 	}
 
 	.desktop-styled {
+		position: relative;
 		flex: 1;
 		padding: 24px 12px;
 		height: 100%;
@@ -56,28 +64,62 @@ import Clock from '../components/Clock.astro';
 			direction: rtl;
 
 			height: 100%;
+			z-index: 20;
+
+			pointer-events: none;
+		}
+
+		.window-manager {
+			position: absolute;
+			inset: 0;
+			z-index: 1000;
+			pointer-events: none;
+			z-index: 30;
 		}
 	}
 </style>
 
 <script>
 	const onDesktopItemDblClick = (id: string) => {
+		const window = document.querySelector(`[data-window-id="${id}"]`);
+		if (window) {
+			window.classList.remove('closed')
+			window.classList.add('selected')
+		};
+
 		console.log(`You double clicked on ${id} you sneeky pest.`);
 	};
 
-	document.addEventListener('click', (event) => {
-		const desktopItem = (event.target as Element)?.closest('[data-desktop-item]');
-		document.querySelectorAll('[data-desktop-item]').forEach(item => item.classList.remove('selected'));
+	const toggleFullscreen = () => {
+		if (!document.fullscreen) return document.documentElement.requestFullscreen();
+		return document.exitFullscreen();
+	};
 
-		if (desktopItem) {
-			desktopItem.classList.add('selected');
-		}
+	document.addEventListener('click', (event) => {
+		const target = (event.target as Element);
+
+		const desktopItem = target?.closest('[data-desktop-item]');
+		const window = target?.closest('[data-window-id]');
+		const redTrafficLight = target?.closest('[data-light="red"]');
+
+		document.querySelectorAll('[data-desktop-item]').forEach(item => item.classList.remove('selected'));
+		document.querySelectorAll('[data-window-id]').forEach(item => item.classList.remove('selected'));
+
+		if (desktopItem) desktopItem.classList.add('selected');
+		if (window) window.classList.add('selected');
+		if (redTrafficLight) window?.classList.add('closed');
 	});
 
 	document.addEventListener('dblclick', event => {
+		const target = (event.target as Element);
+
+		const desktop = target.closest('.desktop-styled');
+
 		const desktopItem = (event.target as Element)?.closest('[data-desktop-item]');
 		const itemId = desktopItem?.getAttribute('data-id');
 		desktopItem && onDesktopItemDblClick(itemId as string);
+
+		if (target === desktop) toggleFullscreen();
 	});
 	
 </script>
