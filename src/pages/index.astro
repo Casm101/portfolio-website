@@ -115,11 +115,14 @@ import SimpleFinder from '../components/Windows/SimpleFinder.astro';
 </style>
 
 <script>
+	let topZIndex = 1000;
+
 	const onDesktopItemDblClick = (id: string) => {
-		const window = document.querySelector(`[data-window-id="${id}"]`);
+		const window = document.querySelector(`[data-window-id="${id}"]`) as HTMLElement;
 		if (window) {
-			window.classList.remove('closed')
-			window.classList.add('selected')
+			window.classList.remove('closed');
+			window.classList.add('selected');
+			window.style.zIndex = String(++topZIndex);
 		};
 	};
 
@@ -132,7 +135,7 @@ import SimpleFinder from '../components/Windows/SimpleFinder.astro';
 		const target = (event.target as Element);
 
 		const desktopItem = target?.closest('[data-desktop-item]');
-		const window = target?.closest('[data-window-id]');
+		const window = target?.closest('[data-window-id]') as HTMLElement;
 		const finderFile = target?.closest('[data-file-id]');
 
 		document.querySelectorAll('[data-desktop-item]').forEach(item => item.classList.remove('selected'));
@@ -140,8 +143,11 @@ import SimpleFinder from '../components/Windows/SimpleFinder.astro';
 		document.querySelectorAll('[data-file-id]').forEach(item => item.classList.remove('selected'));
 
 		if (desktopItem) desktopItem.classList.add('selected');
-		if (window) window.classList.add('selected');
 		if (finderFile) finderFile.classList.add('selected');
+		if (window) {
+			window.classList.add('selected');
+			window.style.zIndex = String(++topZIndex);
+		};
 	});
 
 	document.addEventListener('mouseup', (event) => {
