@@ -1,0 +1,143 @@
+---
+const contentItems = [
+  { key: 'website', value: 'christiansmithmantas.com', href: 'christiansmithmantas.com', type: 'link' },
+  { key: 'github', value: 'casm101', href: 'https://github.com/casm101', type: 'link' },
+  { key: 'linkedin', value: 'in/christiansmithmantas/', href: 'https://www.linkedin.com/in/christiansmithmantas/', type: 'link' },
+  { key: 'instagram', value: '@casm101', href: 'https://www.instagram.com/casm101/', type: 'link' },
+  { key: 'email', value: 'hi@christiansmithmantas.com', type: 'email' },
+  { 
+    key: 'about',
+    value: `<p>I am a software engineer and developer based in sunny Málaga in Spain. Most recently I have joined the LeoVegas Group in 2024, an online casino developer, working in the sports betting department</p><br/><p>Prior to this, I was an engineer at The Workshop in the games department, where I developed online slot and card games and internal tooling.</p><br/><p>I have also done my fair share of work as consultant, creating websites, apps, and customer installations.</p>`, 
+    type: 'content' 
+  },
+];
+---
+
+<div class="about-window-styled">
+  <div class="about-content">
+    <div class="content-header">
+      <div class="profile-picture">
+        <img src="/profile-picture.webp" alt="Christian's profile picture">
+      </div>
+      <div class="header-title">
+        <h2>Christian Smith Mantas</h2>
+        <p>Software Engineer at LeoVegas Group</p>
+      </div>
+    </div>
+    <div class="content-body">
+      {contentItems.map((item, idx) => (
+        <>
+          <div class="content-item">
+            <div class="item-key">{item.key}</div>
+            <div class="item-value">
+              {item.type === 'link' && <a href={item.href} target="_blank">{item.value}</a>}
+              {item.type === 'email' && <a href=`mailto:${item.href}` >{item.value}</a>}
+              {item.type === 'text' && <p>{item.value}</p>}
+              {item.type === 'content' && <Fragment set:html={item.value} />}
+            </div>
+          </div>
+          {idx !== contentItems.length - 1 && <hr/>}
+        </>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .about-window-styled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    line-height: 1.4;
+
+    padding: 20px;
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+
+      width: 100%;
+      max-width: 360px;
+
+      .content-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+
+        .profile-picture {
+          height: 64px;
+          width: 64px;
+          aspect-ratio: 1/1;
+          border-radius: 100%;
+          overflow: hidden;
+
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+          }
+        }
+
+        .header-title {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: .5rem;
+
+          h2 {
+            font-size: 16px;
+            font-weight: 400;
+          }
+          p {
+            color: #777;
+            font-weight: 300;
+          }
+        }
+      }
+
+      .content-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .75rem;
+        width: 100%;
+
+        .content-item {
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-start;
+          gap: 1rem;
+          width: 100%;
+
+          .item-key {
+            width: 60px;
+            flex-shrink: 0;
+            text-align: right;
+            color: #777;
+          }
+
+          .item-value {
+            font-weight: normal;
+            a {
+              color: #000;
+              text-decoration: none;
+              cursor: pointer;
+            }
+          }
+        }
+
+        hr {
+          height: 1px;
+          width: 100%;
+          border: none;
+          outline: none;
+          background-color: #f2f2f2;
+        }
+      }
+    }
+  }
+</style>
