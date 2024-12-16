@@ -3,8 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Clock from '../components/Clock.astro';
 import DesktopItem from '../components/DesktopItem.astro';
 import Window from '../components/Window.astro';
+import About from '../components/Windows/About.astro';
 
 import '../styles/global.css';
+import SimpleFinder from '../components/Windows/SimpleFinder.astro';
 ---
 
 <Layout background="/wallpaper-01.webp">
@@ -17,14 +19,34 @@ import '../styles/global.css';
 			<DesktopItem label="about me" type="image" icon="/profile-picture.webp" />
 			<DesktopItem label="work experience" icon="/folder-icon.webp" />
 			<DesktopItem label="side projects" icon="/folder-icon.webp" />
-			<DesktopItem label="education" icon="/folder-icon.webp" />
+			<DesktopItem label="open foundation" icon="/folder-icon.webp" />
 			<DesktopItem label="tomorrowland 2025" icon="/cd-icon.webp" />
 		</div>
 		<div class="window-manager">
-			<Window title="about me" />
-			<Window title="work experience" />
-			<Window title="side projects" />
-			<Window title="education" />
+			<Window title="about me">
+				<About />
+			</Window>
+			<Window title="work experience">
+				<SimpleFinder files={[
+					{ name: 'Engineer at LeoVegas', date: '2024 - Now' },
+					{ name: 'Freelance Developer', date: '2019 - Now' },
+					{ name: 'Engineer at The Workshop', date: '2023 - 2024' },
+					{ name: 'Engineer at Fathom3', date: '2022 - 2023' },
+					{ name: 'Developer at CorzzoFit', date: '2021 - 2022' },
+				]} />
+			</Window>
+			<Window title="side projects">
+				<SimpleFinder files={[
+					{ name: 'Open Foundation', date: '2023 - Now' },
+					{ name: 'The Framework Project', date: '2024 - Now' },
+					{ name: 'React Stories', date: '2024' },
+				]} />
+			</Window>
+			<Window title="open foundation">
+				<SimpleFinder files={[
+					{ name: 'Open.FM', date: '2024' },
+				]} />
+			</Window>
 		</div>
 	</div>
 </Layout>
@@ -111,12 +133,15 @@ import '../styles/global.css';
 
 		const desktopItem = target?.closest('[data-desktop-item]');
 		const window = target?.closest('[data-window-id]');
+		const finderFile = target?.closest('[data-file-id]');
 
 		document.querySelectorAll('[data-desktop-item]').forEach(item => item.classList.remove('selected'));
 		document.querySelectorAll('[data-window-id]').forEach(item => item.classList.remove('selected'));
+		document.querySelectorAll('[data-file-id]').forEach(item => item.classList.remove('selected'));
 
 		if (desktopItem) desktopItem.classList.add('selected');
 		if (window) window.classList.add('selected');
+		if (finderFile) finderFile.classList.add('selected');
 	});
 
 	document.addEventListener('mouseup', (event) => {
