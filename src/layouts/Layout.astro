@@ -1,4 +1,8 @@
 ---
+interface Props {
+	background: string;
+}
+
 const { background } = Astro.props;
 ---
 
@@ -22,8 +26,10 @@ const { background } = Astro.props;
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
+		
 		height: 100dvh;
 		width: 100dvw;
+		min-width: 375px;
 
 		background-position: center;
 		background-size: cover;
