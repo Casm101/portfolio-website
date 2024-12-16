@@ -1,0 +1,127 @@
+---
+interface IFile {
+  name: string;
+  date: string;
+  kind?: string;
+}
+
+interface Props {
+  files: IFile[];
+}
+
+const { files } = Astro.props;
+---
+
+<div class="simplefinder-window-styled">
+  <div class="finder-header">
+    <div class="header-name">Name</div>
+    <div class="header-date">Date</div>
+  </div>
+  <ul class="finder-list">
+    {files.map(file => (
+      <li data-file-id={file.name.toLowerCase().replaceAll(' ', '-')} class="file">
+        <div class="file-name">
+          <div class="file-icon">
+            <img src="/file-icon.webp" alt=`${file.name} file icon` >
+          </div>
+          <span>{file.name}</span>
+        </div>
+        <div class="file-date">
+          {file.date}
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .simplefinder-window-styled {
+    position: relative;
+    width: 100%;
+
+    .finder-header {
+      position: sticky;
+      top: 0;
+
+      display: grid;
+      align-items: center;
+      grid-template-columns: 1fr 120px;
+
+      height: 25px;
+      width: 100%;
+      padding: 0 1rem;
+
+      background: #FFF;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+      .header-name {
+        padding-left: 24px;
+      }
+    }
+
+    .finder-list {
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      -webkit-user-select: none;
+
+      .file {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 1fr 120px;
+        gap: 1rem;
+
+        height: 24px;
+        width: 100%;
+        padding: 0 1rem;
+
+        font-variant-numeric: tabular-nums;
+        cursor: default;
+
+        .file-name {
+          display: flex;
+          align-items: center;
+          gap: .5rem;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+
+          font-weight: 400;
+
+          .file-icon {
+            position: relative;
+            height: 16px;
+            width: 16px;
+            aspect-ratio: 1/1;
+            flex-shrink: 0;
+
+            img {
+              position: absolute;
+              height: 100%;
+              width: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+
+        .file-date {
+          color: #555;
+          font-weight: 300;
+        }
+
+        &:nth-child(even) {
+          background-color: #F4F5F5;
+        }
+
+        &.selected {
+          color: #FFF;
+          background: rgb(41, 99, 217);
+
+          .file-date {
+            color: rgba(255, 255, 255, 0.75);
+          }
+        }
+      }
+    }
+  }
+</style>
