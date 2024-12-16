@@ -33,14 +33,17 @@ const test = () => console.log('hello');
 
     pointer-events: all;
     user-select: none;
-
+    
     .icon {
       width: 84px;
       aspect-ratio: 1 / 1;
-
+      
       .iconImage {
         width: 100%;
         object-fit: cover;
+
+        -webkit-user-drag: none;
+        user-drag: none;
       }
     }
 
@@ -75,6 +78,11 @@ const test = () => console.log('hello');
     .desktopItem-styled {
       .icon {
         width: 48px;
+      }
+
+      &.image .icon {
+        width: 46px;
+        border-width: 2px;
       }
     }
   }

@@ -3,7 +3,7 @@ const { title } = Astro.props;
 const windowId = title.replace(' ', '-');
 ---
 
-<div data-window-id={windowId} class="window-styled">
+<div data-window-id={windowId} class="window-styled closed">
   <div class="window-header">
     <div class="traffic-lights">
       <button data-light="red" class="light">
@@ -18,7 +18,9 @@ const windowId = title.replace(' ', '-');
     </div>
     <div class="header-title">{title}</div>
   </div>
-  <div class="window-content"></div>
+  <div class="window-content">
+    Goodbye World
+  </div>
 </div>
 
 <style>
@@ -28,6 +30,8 @@ const windowId = title.replace(' ', '-');
 
     border-radius: .5rem;
     overflow: hidden;
+
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.25);
 
     transform: translateX(48px) translateY(48px);
     pointer-events: all;
@@ -92,6 +96,18 @@ const windowId = title.replace(' ', '-');
         text-align: center;
         text-transform: capitalize;
       }
+    }
+
+    .window-content {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: #FFF;
+      overflow: scroll;
     }
 
     &.closed {

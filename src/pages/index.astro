@@ -43,6 +43,8 @@ import '../styles/global.css';
 		background: rgba(0, 0, 0, 0.5);
 		color: #FFF;
 
+    user-select: none;
+
 		p {
 			font-weight: 600;
 		}
@@ -77,6 +79,17 @@ import '../styles/global.css';
 			z-index: 30;
 		}
 	}
+
+	@media screen and (max-width: 480px) {
+		.desktop-styled {
+			.iconGrid-styled {
+				grid-template-columns: repeat(auto-fill, 108px);
+        grid-template-rows: repeat(auto-fill, 84px);
+        row-gap: 12px;
+        column-gap: 8px;
+			}
+		}
+	}
 </style>
 
 <script>
@@ -86,8 +99,6 @@ import '../styles/global.css';
 			window.classList.remove('closed')
 			window.classList.add('selected')
 		};
-
-		console.log(`You double clicked on ${id} you sneeky pest.`);
 	};
 
 	const toggleFullscreen = () => {
@@ -95,20 +106,26 @@ import '../styles/global.css';
 		return document.exitFullscreen();
 	};
 
-	document.addEventListener('click', (event) => {
+	document.addEventListener('mousedown', (event) => {
 		const target = (event.target as Element);
 
 		const desktopItem = target?.closest('[data-desktop-item]');
 		const window = target?.closest('[data-window-id]');
-		const redTrafficLight = target?.closest('[data-light="red"]');
 
 		document.querySelectorAll('[data-desktop-item]').forEach(item => item.classList.remove('selected'));
 		document.querySelectorAll('[data-window-id]').forEach(item => item.classList.remove('selected'));
 
 		if (desktopItem) desktopItem.classList.add('selected');
 		if (window) window.classList.add('selected');
-		if (redTrafficLight) window?.classList.add('closed');
 	});
+
+	document.addEventListener('mouseup', (event) => {
+		const target = (event.target as Element);
+		const redTrafficLight = target?.closest('[data-light="red"]');
+		const window = target?.closest('[data-window-id]');
+
+		if (redTrafficLight && window) window.classList.add('closed');
+	})
 
 	document.addEventListener('dblclick', event => {
 		const target = (event.target as Element);
@@ -121,5 +138,6 @@ import '../styles/global.css';
 
 		if (target === desktop) toggleFullscreen();
 	});
-	
 </script>
+
+<script src="../scripts/draggable.ts" />
