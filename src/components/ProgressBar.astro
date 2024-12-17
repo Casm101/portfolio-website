@@ -1,0 +1,69 @@
+<div class="progress-bar-styled">
+  <div class="progress" style="width: 0%;" />
+</div>
+
+<style>
+  .progress-bar-styled {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    height: 7px;
+    width: 200px;
+
+    border: 1px solid #FFF;
+    border-radius: .5rem;
+
+    .progress {
+      height: 100%;
+      background: #FFF;
+      transition: width .5s;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const progressBar = document.querySelector('.progress') as HTMLElement;
+    let progress = 0;
+    let step = 0;
+    setInterval(() => {
+      switch (step) {
+        case 0: {
+          progress = 15;
+          break;
+        }
+        case 1: {
+          progress = 25;
+          break;
+        }
+        case 2: {
+          progress = 50;
+          break;
+        }
+        case 3: {
+          progress = 75;
+          break;
+        }
+        case 4: {
+          progress = 80;
+          break;
+        }
+        case 5: {
+          progress = 90;
+          break;
+        }
+        case 6: {
+          progress = 95;
+          break;
+        }
+        case 7: {
+          progress = 100;
+          break;
+        }
+      }
+      step ++;
+      if (progress <= 100) progressBar.style.width = progress + '%';
+    }, 500);
+  })
+</script>

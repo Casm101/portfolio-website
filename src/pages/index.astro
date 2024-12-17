@@ -7,9 +7,11 @@ import About from '../components/Windows/About.astro';
 
 import '../styles/global.css';
 import SimpleFinder from '../components/Windows/SimpleFinder.astro';
+import BootScreen from '../components/BootScreen.astro';
 ---
 
 <Layout background="/wallpaper-01.webp">
+	<BootScreen />
 	<div class="toolBar-styled">
 		<p>Christian Smith Mantas</p>
 		<Clock />
@@ -168,6 +170,12 @@ import SimpleFinder from '../components/Windows/SimpleFinder.astro';
 		desktopItem && onDesktopItemDblClick(itemId as string);
 
 		if (target === desktop) toggleFullscreen();
+	});
+
+	// TODO: handle right click in the future
+	document.addEventListener('contextmenu', (event) => {
+		event.preventDefault();
+		console.log('You have just right clicked!');
 	});
 </script>
 
