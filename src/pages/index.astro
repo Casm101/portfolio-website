@@ -4,10 +4,11 @@ import Clock from '../components/Clock.astro';
 import DesktopItem from '../components/DesktopItem.astro';
 import Window from '../components/Window.astro';
 import About from '../components/Windows/About.astro';
+import SimpleFinder from '../components/Windows/SimpleFinder.astro';
+import Welcome from '../components/Windows/Welcome.astro';
+import BootScreen from '../components/BootScreen.astro';
 
 import '../styles/global.css';
-import SimpleFinder from '../components/Windows/SimpleFinder.astro';
-import BootScreen from '../components/BootScreen.astro';
 ---
 
 <Layout background="/wallpaper-01.webp">
@@ -22,32 +23,35 @@ import BootScreen from '../components/BootScreen.astro';
 			<DesktopItem label="work experience" icon="/folder-icon.webp" />
 			<DesktopItem label="side projects" icon="/folder-icon.webp" />
 			<DesktopItem label="open foundation" icon="/folder-icon.webp" />
-			<DesktopItem label="tomorrowland 2025" icon="/cd-icon.webp" />
+			<DesktopItem label="awesome playlist vol. 1" icon="/cd-icon.webp" />
 		</div>
 		<div class="window-manager">
 			<Window title="about me">
 				<About />
 			</Window>
-			<Window title="work experience">
+			<Window title="work experience" position={{x: 75, y: 70}}>
 				<SimpleFinder files={[
 					{ name: 'Engineer at LeoVegas', date: '2024 - Now' },
 					{ name: 'Freelance Developer', date: '2019 - Now' },
 					{ name: 'Engineer at The Workshop', date: '2023 - 2024' },
-					{ name: 'Engineer at Fathom3', date: '2022 - 2023' },
+					{ name: 'Developer at Fathom3', date: '2022 - 2023' },
 					{ name: 'Developer at CorzzoFit', date: '2021 - 2022' },
 				]} />
 			</Window>
-			<Window title="side projects">
+			<Window title="side projects" position={{x: 95, y: 90}} >
 				<SimpleFinder files={[
 					{ name: 'Open Foundation', date: '2023 - Now' },
 					{ name: 'The Framework Project', date: '2024 - Now' },
 					{ name: 'React Stories', date: '2024' },
 				]} />
 			</Window>
-			<Window title="open foundation">
+			<Window title="open foundation" position={{x: 115, y: 110}}>
 				<SimpleFinder files={[
 					{ name: 'Open.FM', date: '2024' },
 				]} />
+			</Window>
+			<Window title="welcome" position={{ centered: true }} isOpen isSecondary isSelected>
+				<Welcome />
 			</Window>
 		</div>
 	</div>
@@ -155,9 +159,10 @@ import BootScreen from '../components/BootScreen.astro';
 	document.addEventListener('mouseup', (event) => {
 		const target = (event.target as Element);
 		const redTrafficLight = target?.closest('[data-light="red"]');
+		const welcomeButton = target?.closest('[data-button-id="welcome-continue"]');
 		const window = target?.closest('[data-window-id]');
 
-		if (redTrafficLight && window) window.classList.add('closed');
+		if ((redTrafficLight || welcomeButton) && window) window.classList.add('closed');
 	})
 
 	document.addEventListener('dblclick', event => {

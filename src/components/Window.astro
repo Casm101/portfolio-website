@@ -4,18 +4,40 @@ interface ITraficLight {
   status: 'on' | 'off';
 }
 
+interface IPosition {
+  centered?: boolean;
+  x?: number;
+  y?: number;
+}
+
 interface Props {
   title: string;
   trafficLights?: ITraficLight[];
   isOpen?: boolean;
+  isSecondary?: boolean;
+  isSelected?: boolean;
+  position?: IPosition;
 }
 
-const { title, trafficLights, isOpen } = Astro.props;
+const { title, trafficLights, isOpen, isSecondary, isSelected, position } = Astro.props;
 const windowId = title.replaceAll(' ', '-');
+let startPosition = "transform: translate(48px, 48px);"
+
+if (position?.x)  startPosition = `transform: translate(${position.x}px, ${position.y}px);`; 
+if (position?.centered) startPosition= "transform: translate(-50%, -50%); top: 50%; left: 50%;"
 
 ---
 
-<div data-window-id={windowId} class=`window-styled ${!isOpen && 'closed'}`>
+<div
+  data-window-id={windowId}
+  class=`
+    window-styled
+    ${!isOpen && 'closed'}
+    ${isSecondary && 'secondary'}
+    ${isSelected && 'selected'}
+  `
+  style={startPosition}
+>
   <div class="window-header">
     <div class="traffic-lights">
       <button data-light="red" class="light">
@@ -24,7 +46,7 @@ const windowId = title.replaceAll(' ', '-');
       <button data-light="ambar" class="light disabled">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none"><path fill="#995700" d="M2 6a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 2 6" style="fill: rgb(153, 87, 0);"></path></svg>
       </button>
-      <button data-light="green" class="light">
+      <button data-light="green" class="light disabled">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none"><path fill="#006500" d="M7.5 9 3 4.5v4a.5.5 0 0 0 .5.5zM4.5 3h4a.5.5 0 0 1 .5.5v4z" style="fill: rgb(0, 101, 0);"></path></svg>
       </button>
     </div>
@@ -45,7 +67,6 @@ const windowId = title.replaceAll(' ', '-');
 
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.25);
 
-    transform: translateX(48px) translateY(48px);
     pointer-events: all;
 
     .window-header {
@@ -141,6 +162,24 @@ const windowId = title.replaceAll(' ', '-');
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.25);
 
       .header-title { color: #111; }
+    }
+
+    &.secondary {
+      backdrop-filter: blur(40px) saturate(3);
+		  background: rgba(0, 0, 0, 0.25);
+      color: #FFF;
+      .window-header {
+        background: none;
+        box-shadow: none;
+
+        .header-title {
+          display: none;
+        }
+      }
+
+      .window-content {
+        background: none;
+      }
     }
   }
 </style>

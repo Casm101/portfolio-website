@@ -1,0 +1,67 @@
+<div class="welcome-window-styled">
+
+  <img src="/profile-picture.webp" alt="" width="150" height="150">
+
+  <h2>Welcome to my portfolio!</h1>
+  <div class="text-body">
+    <p>Here you can find my projects, skills, and contact information.</p>
+    <p>Feel free to explore and reach out if you have any questions.</p>
+    <p>Thank you for visiting!</p>
+  </div>
+  <button data-button-id="welcome-continue">Continue</button>
+
+</div>
+
+<style>
+  .welcome-window-styled {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
+
+    padding: 20px;
+
+    img {
+      border: 5px solid #FFF;
+      border-radius: 100%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    .text-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.4;
+    }
+
+    button {
+      margin-top: 2rem;
+
+      border: 1px solid;
+      border-color: rgb(76, 162, 249) rgb(38, 127, 252) rgb(1, 92, 255);
+      border-radius: .5rem;
+      outline: none;
+
+      color: #FFFFFFEE;
+      background: -webkit-linear-gradient(top, rgb(108, 179, 250) 0%, rgb(8, 126, 255) 100%);
+      text-shadow: none;
+      text-transform: capitalize;
+
+      padding: .5rem 1rem;
+
+      transition: all .05s;
+
+      &:active {
+        border-color: rgb(36, 127, 255) rgb(18, 24, 237) rgb(0,61,219);
+        background: -webkit-linear-gradient(top, rgb(76, 152, 254) 0%, rgb(5, 100, 227) 100%);
+      }
+    }
+  }
+</style>

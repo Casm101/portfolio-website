@@ -62,6 +62,8 @@ const makeWindowDraggable = () => {
 
       // Apply new position to the window
       activeWindow.style.transform = `translate(${left - managerRect.left}px, ${top - managerRect.top}px)`;
+      activeWindow.style.left = "";
+      activeWindow.style.top = "";
   };
 
   const onMouseUp = () => {
