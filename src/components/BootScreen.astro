@@ -1,13 +1,11 @@
 ---
 import Picture from "astro/components/Picture.astro";
 import ProgressBar from "./ProgressBar.astro";
-
-import BootLogo from '../assets/boot-logo-01.webp';
 ---
 
 <div class="boot-screen-styled">
   <div class="logo">
-    <Picture src={BootLogo} alt="Boot logo">
+    <img src="/boot-logo-01.webp" alt="Boot logo">
   </div>
   <ProgressBar />
 </div>
