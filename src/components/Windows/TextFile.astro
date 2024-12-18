@@ -1,0 +1,60 @@
+---
+  interface IFileData {
+    title: string;
+    subtitle: string;
+    content: string;
+    link?: string;
+  }
+
+  interface Props {
+    data: IFileData;
+  }
+
+  const { data } = Astro.props;
+---
+
+<div class="textfile-window-styled">
+  <div class="textfile-content">
+    <h2 class="textfile-title">{data.title}</h2>
+    <p class="textfile-subtitle">{data.subtitle}</p>
+    <div class="textfile-content">
+      <Fragment set:html={data.content} />
+    </div>
+    {data.link &&
+      <p class="textfile-link">
+        <a href={data.link} target="_blank">View link</a>
+      </p>
+    }
+  </div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+  .textfile-window-styled {
+    width: 100%;
+    padding: 40px;
+
+    .textfile-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2rem;
+
+      width: 100%;
+
+      h2, p, a {
+        font-family: "IBM Plex Mono", serif !important;
+        font-size: 16px;
+        font-weight: 300;
+      }
+
+      .textfile-title { font-size: 1.5rem; font-weight: 700; }
+      .textfile-subtitle { margin-top: -1.5rem; font-size: 14px; }
+      .textfile-link a {
+        color: #000;
+        font-weight: 400;
+      }
+    }
+  }
+</style>
