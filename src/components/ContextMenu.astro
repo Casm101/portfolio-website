@@ -1,0 +1,58 @@
+<div data-context-menu class="context-menu-styled">
+  <ul>
+    <li>Get Info</li>
+    <li data-context-id="wallpapers">Change Wallpaper...</li>
+    <hr>
+    <li>Share...</li>
+  </ul>
+</div>
+
+<style>
+  .context-menu-styled {
+    position: absolute;
+    display: block;
+    width: 150px;
+
+    backdrop-filter: blur(40px) saturate(3);
+    background: #1C1C1E99;
+    color: #FFF;
+
+    padding: 4px;
+
+    border: 1px solid #f2f2f244;
+    border-radius: .40rem;
+
+    opacity: 0;
+    pointer-events: all;
+    transition: opacity .1s ease-out;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .25rem;
+
+      text-shadow: 0 1px 3px rgba(0,0,0,0.75);
+
+      li {
+        width: 100%;
+        padding: 4px 6px;
+        border-radius: .25rem;
+
+        cursor: default;
+
+        &:hover {
+          background: #176DC9;
+        }
+      }
+
+      hr {
+        height: 1px;
+        width: calc(100% - 12px);
+        border: none;
+        outline: none;
+        background-color: #f2f2f244;
+      }
+    }
+  }
+</style>
