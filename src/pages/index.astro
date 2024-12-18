@@ -15,7 +15,7 @@ import '../styles/global.css';
 ---
 
 <Layout background="/wallpaper-01.webp">
-	<BootScreen />
+	<!-- <BootScreen /> -->
 	<div class="toolBar-styled">
 		<p>Christian Smith Mantas</p>
 		<Clock />
@@ -43,7 +43,7 @@ import '../styles/global.css';
 			</Window>
 			<Window title="side projects" position={{x: 95, y: 90}} >
 				<SimpleFinder files={[
-					{ name: 'Open Foundation', date: '2023 - Now' },
+					{ name: 'Open Foundation Team', date: '2021 - Now' },
 					{ name: 'The Framework Project', date: '2024 - Now' },
 					{ name: 'React Stories', date: '2024' },
 				]} />
@@ -57,7 +57,8 @@ import '../styles/global.css';
 			<Window title="welcome" position={{ centered: true }} isOpen isSecondary isSelected>
 				<Welcome />
 			</Window>
-
+			
+			<!-- Work experience -->
 			<Window title="engineer at leovegas" position={{ centered: true }}>
 				<TextFile data={{
 					title: 'Engineer at LeoVegas',
@@ -95,6 +96,42 @@ import '../styles/global.css';
 					subtitle: '2022 - 2023, Remote',
 					content: '<p>Working as the lead frontend developer, creating websites and apps, designing product UX and an internal CRM.</p>',
 					link: 'https://corzzofit.com/'
+				}} />
+			</Window>
+
+			<!-- Side projects -->
+			<Window title="open foundation team" position={{ centered: true }}>
+				<TextFile data={{
+					title: 'Open Foundation Team',
+					subtitle: '2021 - Now',
+					content: '<p>The Open Foundation project started as a collaboration with a colleague to help tech startups and entrepreneurs build and scale world-class products since 2021.</p><p>Since then it has become a plaground to create and build upon open source software ideas</p>',
+					link: 'https://github.com/open-foundation-team'
+				}} />
+			</Window>
+			<Window title="the framework project" position={{ centered: true }}>
+				<TextFile data={{
+					title: 'The Framework Project',
+					subtitle: '2024 - Now',
+					content: '<p>The Framework Project started as my personal new years resolution, to learn and benchmark the performance of different frontend frameworks.</p>',
+					link: 'https://github.com/open-foundation-team'
+				}} />
+			</Window>
+			<Window title="react stories" position={{ centered: true }}>
+				<TextFile data={{
+					title: 'React Stories Package',
+					subtitle: '2024',
+					content: '<p><code>react-stories</code> is an open source react packages that allows you to quickly and easily implement a Meta type story component into your projects.</p>',
+					link: 'https://casm101.github.io/react-stories/'
+				}} />
+			</Window>
+
+			<!-- Open foundation -->
+			<Window title="open.fm" position={{ centered: true }}>
+				<TextFile data={{
+					title: 'Open FM',
+					subtitle: '2024',
+					content: "<p>Open.fm is the first open source project released by the Open Foundation team, it's a on online lo-fi music radio with curated copyright free playlists.It features a user-friendly interface and allows users to add ambient sounds for a relaxing experience.</p>",
+					link: 'https://open-foundation-team.github.io/open-fm/'
 				}} />
 			</Window>
 		</div>
