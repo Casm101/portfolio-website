@@ -1,12 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+import BootScreen from '../components/BootScreen.astro';
 import Clock from '../components/Clock.astro';
 import DesktopItem from '../components/DesktopItem.astro';
 import Window from '../components/Window.astro';
+
 import About from '../components/Windows/About.astro';
 import SimpleFinder from '../components/Windows/SimpleFinder.astro';
 import Welcome from '../components/Windows/Welcome.astro';
-import BootScreen from '../components/BootScreen.astro';
+import TextFile from '../components/Windows/TextFile.astro';
 
 import '../styles/global.css';
 ---
@@ -50,8 +53,49 @@ import '../styles/global.css';
 					{ name: 'Open.FM', date: '2024' },
 				]} />
 			</Window>
+
 			<Window title="welcome" position={{ centered: true }} isOpen isSecondary isSelected>
 				<Welcome />
+			</Window>
+
+			<Window title="engineer at leovegas" position={{ centered: true }}>
+				<TextFile data={{
+					title: 'Engineer at LeoVegas',
+					subtitle: '2024 - Now, Málaga, ES',
+					content: '<p>Working on general Sportsbook development.</p>',
+					link: 'https://leovegasgroup.com/'
+				}} />
+			</Window>
+			<Window title="freelance developer" position={{ centered: true }}>
+				<TextFile data={{
+					title: 'Freelance Developer',
+					subtitle: '2019 - Now, Málaga, ES / London, GB',
+					content: '<p>Creation of apps, websites and custom technical solutions for various clients and businesses.</p><p>As well as participating in multiple hackathons, collaborating with teams to deliver high-quality software solutions.</p>',
+				}} />
+			</Window>
+			<Window title="engineer at the workshop" position={{ centered: true }}>
+				<TextFile data={{
+					title: 'Engineer at The Workshop',
+					subtitle: '2023 - 2024, Málaga, ES',
+					content: '<p>Developing slot and card games as well as internal tooling.</p>',
+					link: 'https://theworkshop.com/'
+				}} />
+			</Window>
+			<Window title="developer at fathom3" position={{ centered: true }}>
+				<TextFile data={{
+					title: 'Daveloper at Fathom3',
+					subtitle: '2022 - 2023, Málaga, ES',
+					content: '<p>Worked on the development of an online store, CMS and CRM tooling.</p>',
+					link: 'https://asafedigital.com/'
+				}} />
+			</Window>
+			<Window title="developer at corzzofit" position={{ centered: true }}>
+				<TextFile data={{
+					title: 'Developer at CorzzoFit',
+					subtitle: '2022 - 2023, Remote',
+					content: '<p>Working as the lead frontend developer, creating websites and apps, designing product UX and an internal CRM.</p>',
+					link: 'https://corzzofit.com/'
+				}} />
 			</Window>
 		</div>
 	</div>
@@ -169,12 +213,15 @@ import '../styles/global.css';
 		const target = (event.target as Element);
 
 		const desktop = target.closest('.desktop-styled');
+		const finderFile = target?.closest('[data-file-id]');
 
 		const desktopItem = (event.target as Element)?.closest('[data-desktop-item]');
 		const itemId = desktopItem?.getAttribute('data-id');
-		desktopItem && onDesktopItemDblClick(itemId as string);
+		const fileId = finderFile?.getAttribute('data-file-id')
 
 		if (target === desktop) toggleFullscreen();
+		if (desktopItem) onDesktopItemDblClick(itemId as string);
+		if (finderFile) onDesktopItemDblClick(fileId as string);
 	});
 
 	// TODO: handle right click in the future
