@@ -1,0 +1,65 @@
+<div class="wallpaper-window-styled">
+  <div class="wallpaper-content">
+    <div class="wallpaper-section">
+      <p class="section-title">Custom Wallpapers</p>
+      <div class="wallpaper-row">
+        <img data-wallpaper src="/wallpaper-01.webp" alt="" class="wallpaper">
+        <img data-wallpaper src="/wallpaper-02.webp" alt="" class="wallpaper">
+      </div>
+    </div>
+    <div class="wallpaper-section">
+      <p class="section-title">Apple Wallpapers</p>
+      <div class="wallpaper-row">
+        <img data-wallpaper src="/wallpaper-03.webp" alt="" class="wallpaper">
+        <img data-wallpaper src="/wallpaper-04.webp" alt="" class="wallpaper">
+        <img data-wallpaper src="/wallpaper-05.webp" alt="" class="wallpaper">
+        <img data-wallpaper src="/wallpaper-06.webp" alt="" class="wallpaper">
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .wallpaper-window-styled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    .wallpaper-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+
+      width: 100%;
+
+      .wallpaper-section {
+
+        display: flex;
+        flex-direction: column;
+        gap: .75rem;
+
+        width: 100%;
+
+        .section-title {
+          font-weight: 600;
+        }
+
+        .wallpaper-row {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          .wallpaper {
+            width: 108px;
+            height: 72px;
+            border-radius: .25rem;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+</style>

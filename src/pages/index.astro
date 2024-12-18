@@ -12,10 +12,12 @@ import Welcome from '../components/Windows/Welcome.astro';
 import TextFile from '../components/Windows/TextFile.astro';
 
 import '../styles/global.css';
+import ContextMenu from '../components/ContextMenu.astro';
+import Wallpapers from '../components/Windows/Wallpapers.astro';
 ---
 
 <Layout background="/wallpaper-01.webp">
-	<!-- <BootScreen /> -->
+	<BootScreen />
 	<div class="toolBar-styled">
 		<p>Christian Smith Mantas</p>
 		<Clock />
@@ -134,6 +136,13 @@ import '../styles/global.css';
 					link: 'https://open-foundation-team.github.io/open-fm/'
 				}} />
 			</Window>
+
+			<!-- Context Menu -->
+			<ContextMenu />
+
+			<Window title="wallpapers" position={{ centered: true }}>
+				<Wallpapers />
+			</Window>
 		</div>
 	</div>
 </Layout>
@@ -218,19 +227,34 @@ import '../styles/global.css';
 		return document.exitFullscreen();
 	};
 
+	const hideContextMenu = (menu: HTMLElement) => {
+		menu.style.opacity = '0';
+	};
+
+	const changeWallpaper = (src: string) => {
+		document.body.style.backgroundImage = `url(${src})`;
+	};
+
 	document.addEventListener('mousedown', (event) => {
 		const target = (event.target as Element);
 
 		const desktopItem = target?.closest('[data-desktop-item]');
 		const window = target?.closest('[data-window-id]') as HTMLElement;
 		const finderFile = target?.closest('[data-file-id]');
+		const wallpaperSelector = target?.closest('[data-wallpaper]');
+
+		const contextmenu = document.querySelector('[data-context-menu]') as HTMLElement;
+		const contentMenuItem = document.querySelector('[data-context-id]') as HTMLElement;
 
 		document.querySelectorAll('[data-desktop-item]').forEach(item => item.classList.remove('selected'));
 		document.querySelectorAll('[data-window-id]').forEach(item => item.classList.remove('selected'));
 		document.querySelectorAll('[data-file-id]').forEach(item => item.classList.remove('selected'));
+		hideContextMenu(contextmenu);
 
 		if (desktopItem) desktopItem.classList.add('selected');
 		if (finderFile) finderFile.classList.add('selected');
+		if (target === wallpaperSelector) changeWallpaper(wallpaperSelector.getAttribute('src') as string)
+		if (target === contentMenuItem) onDesktopItemDblClick(contentMenuItem.getAttribute('data-context-id') as string);
 		if (window) {
 			window.classList.add('selected');
 			window.style.zIndex = String(++topZIndex);
@@ -261,10 +285,19 @@ import '../styles/global.css';
 		if (finderFile) onDesktopItemDblClick(fileId as string);
 	});
 
-	// TODO: handle right click in the future
 	document.addEventListener('contextmenu', (event) => {
+		const target = (event.target as Element);
 		event.preventDefault();
-		console.log('You have just right clicked!');
+
+		const desktop = target.closest('.desktop-styled');
+		const contextmenu = document.querySelector('[data-context-menu]') as HTMLElement;
+		const cursorPosition = `translate(${event.clientX + 5}px, ${event.clientY - 26}px)`;
+		
+		if (target !== desktop) hideContextMenu(contextmenu);
+		if (target === desktop) {
+			contextmenu.style.opacity = '1';
+			contextmenu.style.transform = cursorPosition
+		};
 	});
 </script>
 

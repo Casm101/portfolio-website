@@ -137,10 +137,8 @@ if (position?.centered) startPosition= "transform: translate(-50%, -50%); top: 5
       align-items: center;
       justify-content: center;
 
-      /* padding: 20px; */
-
       background: #FFF;
-      overflow: scroll;
+      overflow-x: hidden;
     }
 
     &.closed {
@@ -168,6 +166,7 @@ if (position?.centered) startPosition= "transform: translate(-50%, -50%); top: 5
       backdrop-filter: blur(40px) saturate(3);
 		  background: rgba(0, 0, 0, 0.25);
       color: #FFF;
+
       .window-header {
         background: none;
         box-shadow: none;
@@ -179,6 +178,7 @@ if (position?.centered) startPosition= "transform: translate(-50%, -50%); top: 5
 
       .window-content {
         background: none;
+        overflow: hidden;
       }
     }
   }
