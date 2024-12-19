@@ -237,6 +237,14 @@ import '../styles/global.css';
 		return document.exitFullscreen();
 	};
 
+	// TODO: fullscreen window feature
+	const fullscreenWindow = (window: HTMLElement) => {
+		// window.style.transform = 'translate(0px, 0px)';
+		// window.style.height = '100%';
+		// window.style.width = '100%';
+		return;
+	};
+
 	const handleContextMenuClick = (id: string) => {
 		console.log('Got here with ID', id);
 		if (id === 'fullscreen') toggleFullscreen();
@@ -290,8 +298,11 @@ import '../styles/global.css';
 	document.addEventListener('mouseup', (event) => {
 		const target = (event.target as Element);
 		const redTrafficLight = target?.closest('[data-light="red"]');
+		const greenTrafficLight = target?.closest('[data-light="green"]');
 		const welcomeButton = target?.closest('[data-button-id="welcome-continue"]');
-		const window = target?.closest('[data-window-id]');
+		const window = target?.closest('[data-window-id]') as HTMLElement;
+
+		if (greenTrafficLight && window) fullscreenWindow(window);
 
 		if ((redTrafficLight || welcomeButton) && window) {
 			window.classList.add('closed');
