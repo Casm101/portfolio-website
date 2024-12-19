@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 
 import BootScreen from '../components/BootScreen.astro';
 import Clock from '../components/Clock.astro';
+import ContextMenu from '../components/ContextMenu.astro';
 import DesktopItem from '../components/DesktopItem.astro';
 import Window from '../components/Window.astro';
 
@@ -10,13 +11,12 @@ import About from '../components/Windows/About.astro';
 import SimpleFinder from '../components/Windows/SimpleFinder.astro';
 import Welcome from '../components/Windows/Welcome.astro';
 import TextFile from '../components/Windows/TextFile.astro';
+import Wallpapers from '../components/Windows/Wallpapers.astro';
 
 import '../styles/global.css';
-import ContextMenu from '../components/ContextMenu.astro';
-import Wallpapers from '../components/Windows/Wallpapers.astro';
 ---
 
-<Layout background="/wallpaper-01.webp">
+<Layout background="">
 	<BootScreen />
 	<div class="toolBar-styled">
 		<p>Christian Smith Mantas</p>
@@ -211,6 +211,8 @@ import Wallpapers from '../components/Windows/Wallpapers.astro';
 </style>
 
 <script>
+import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorage";
+
 	let topZIndex = 1000;
 
 	const onDesktopItemDblClick = (id: string) => {
@@ -223,8 +225,17 @@ import Wallpapers from '../components/Windows/Wallpapers.astro';
 	};
 
 	const toggleFullscreen = () => {
-		if (!document.fullscreen) return document.documentElement.requestFullscreen();
+		if (!document.fullscreen) {
+			document.documentElement.requestFullscreen();
+			return;
+		}
+		
 		return document.exitFullscreen();
+	};
+
+	const handleContextMenuClick = (id: string) => {
+		if (id === 'wallpapers') onDesktopItemDblClick('wallpapers');
+		if (id === 'fullscreen') toggleFullscreen()
 	};
 
 	const hideContextMenu = (menu: HTMLElement) => {
@@ -234,7 +245,14 @@ import Wallpapers from '../components/Windows/Wallpapers.astro';
 
 	const changeWallpaper = (src: string) => {
 		document.body.style.backgroundImage = `url(${src})`;
+		setLocalStorageItem('wallpaper', src);
 	};
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const body = document.body;
+		const storageWallpaper = getLocalStorageItem('wallpaper') ?? '/wallpaper-00.webp';
+		body.style.backgroundImage = `url(${storageWallpaper})`;
+	})
 
 	document.addEventListener('mousedown', (event) => {
 		const target = (event.target as Element);
@@ -254,8 +272,8 @@ import Wallpapers from '../components/Windows/Wallpapers.astro';
 
 		if (desktopItem) desktopItem.classList.add('selected');
 		if (finderFile) finderFile.classList.add('selected');
-		if (target === wallpaperSelector) changeWallpaper(wallpaperSelector.getAttribute('src') as string)
-		if (target === contentMenuItem) onDesktopItemDblClick(contentMenuItem.getAttribute('data-context-id') as string);
+		if (target === wallpaperSelector) changeWallpaper(wallpaperSelector.getAttribute('src') as string);
+		if (target === contentMenuItem) handleContextMenuClick(contentMenuItem.getAttribute('data-context-id') as string);
 		if (window) {
 			window.classList.add('selected');
 			window.style.zIndex = String(++topZIndex);

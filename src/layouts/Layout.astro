@@ -13,6 +13,7 @@ const { background } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta charset="UTF-8" />
 		<title>Christian Smith Mantas</title>
 	</head>
 	<body style={`background-image: url(${background});`}>
@@ -33,7 +34,9 @@ const { background } = Astro.props;
 
 		background-position: center;
 		background-size: cover;
-
+		background-color: #000;
+		
+		transition: background-color, background-image .5s;;
 		overflow: hidden;
 	}
 </style>

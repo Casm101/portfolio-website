@@ -10,6 +10,11 @@ interface IPosition {
   y?: number;
 }
 
+interface ISize {
+  x: number;
+  y: string;
+}
+
 interface Props {
   title: string;
   trafficLights?: ITraficLight[];
@@ -17,11 +22,13 @@ interface Props {
   isSecondary?: boolean;
   isSelected?: boolean;
   position?: IPosition;
+  size?: ISize;
 }
 
-const { title, trafficLights, isOpen, isSecondary, isSelected, position } = Astro.props;
+const { title, trafficLights, isOpen, isSecondary, isSelected, position, size } = Astro.props;
 const windowId = title.replaceAll(' ', '-');
 let startPosition = "transform: translate(48px, 48px);"
+let startSize = `width: '${size?.x || 525}px', height: '${size?.y || 300}px';`;
 
 if (position?.x)  startPosition = `transform: translate(${position.x}px, ${position.y}px);`; 
 if (position?.centered) startPosition= "transform: translate(-50%, -50%); top: 50%; left: 50%;"
@@ -36,7 +43,7 @@ if (position?.centered) startPosition= "transform: translate(-50%, -50%); top: 5
     ${isSecondary && 'secondary'}
     ${isSelected && 'selected'}
   `
-  style={startPosition}
+  style={[startPosition, startSize].join(' ')}
 >
   <div class="window-header">
     <div class="traffic-lights">
