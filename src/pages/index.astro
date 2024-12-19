@@ -229,6 +229,7 @@ import Wallpapers from '../components/Windows/Wallpapers.astro';
 
 	const hideContextMenu = (menu: HTMLElement) => {
 		menu.style.opacity = '0';
+		menu.style.pointerEvents = 'none'
 	};
 
 	const changeWallpaper = (src: string) => {
@@ -267,6 +268,8 @@ import Wallpapers from '../components/Windows/Wallpapers.astro';
 		const welcomeButton = target?.closest('[data-button-id="welcome-continue"]');
 		const window = target?.closest('[data-window-id]');
 
+		// TODO: select highest z-index window (!closed) after closing another window.
+
 		if ((redTrafficLight || welcomeButton) && window) window.classList.add('closed');
 	})
 
@@ -296,7 +299,8 @@ import Wallpapers from '../components/Windows/Wallpapers.astro';
 		if (target !== desktop) hideContextMenu(contextmenu);
 		if (target === desktop) {
 			contextmenu.style.opacity = '1';
-			contextmenu.style.transform = cursorPosition
+			contextmenu.style.pointerEvents = 'all';
+			contextmenu.style.transform = cursorPosition;
 		};
 	});
 </script>
