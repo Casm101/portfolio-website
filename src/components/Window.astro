@@ -11,8 +11,8 @@ interface IPosition {
 }
 
 interface ISize {
-  x: number;
-  y: string;
+  x: number | string;
+  y: number | string;
 }
 
 interface Props {
@@ -28,7 +28,6 @@ interface Props {
 const { title, trafficLights, isOpen, isSecondary, isSelected, position, size } = Astro.props;
 const windowId = title.replaceAll(' ', '-');
 let startPosition = "transform: translate(48px, 48px);"
-let startSize = `width: '${size?.x || 525}px', height: '${size?.y || 300}px';`;
 
 if (position?.x)  startPosition = `transform: translate(${position.x}px, ${position.y}px);`; 
 if (position?.centered) startPosition= "transform: translate(-50%, -50%); top: 50%; left: 50%;"
@@ -43,7 +42,7 @@ if (position?.centered) startPosition= "transform: translate(-50%, -50%); top: 5
     ${isSecondary && 'secondary'}
     ${isSelected && 'selected'}
   `
-  style={[startPosition, startSize].join(' ')}
+  style={startPosition}
 >
   <div class="window-header">
     <div class="traffic-lights">
@@ -67,7 +66,6 @@ if (position?.centered) startPosition= "transform: translate(-50%, -50%); top: 5
 <style>
   .window-styled {
     position: absolute;
-    width: 525px;
 
     border-radius: .5rem;
     overflow: hidden;

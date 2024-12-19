@@ -141,7 +141,7 @@ import '../styles/global.css';
 			<!-- Context Menu -->
 			<ContextMenu />
 
-			<Window title="get info" position={{ centered: true }} >
+			<Window title="get info" position={{ centered: true }} size={{ x: '250px', y: '0px'}} isSecondary>
 				<GetInfo />
 			</Window>
 			<Window title="wallpapers" position={{ centered: true }}>
@@ -215,7 +215,7 @@ import '../styles/global.css';
 </style>
 
 <script>
-import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorage";
+	import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorage";
 
 	let topZIndex = 1000;
 
@@ -273,10 +273,7 @@ import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorag
 		document.querySelectorAll('[data-desktop-item]').forEach(item => item.classList.remove('selected'));
 		document.querySelectorAll('[data-window-id]').forEach(item => item.classList.remove('selected'));
 		document.querySelectorAll('[data-file-id]').forEach(item => item.classList.remove('selected'));
-		hideContextMenu(contextmenu);
-
-		//console.log('Current target', target);
-		
+		hideContextMenu(contextmenu);		
 
 		if (desktopItem) desktopItem.classList.add('selected');
 		if (finderFile) finderFile.classList.add('selected');
