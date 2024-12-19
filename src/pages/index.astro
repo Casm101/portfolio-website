@@ -18,7 +18,7 @@ import '../styles/global.css';
 ---
 
 <Layout background="">
-	<!-- <BootScreen /> -->
+	<BootScreen />
 	<div class="toolBar-styled">
 		<p>Christian Smith Mantas</p>
 		<Clock />
@@ -57,9 +57,9 @@ import '../styles/global.css';
 				]} />
 			</Window>
 
-			<!-- <Window title="welcome" position={{ centered: true }} isOpen isSecondary isSelected>
+			<Window title="welcome" position={{ centered: true }} isOpen isSecondary isSelected>
 				<Welcome />
-			</Window> -->
+			</Window>
 			
 			<!-- Work experience -->
 			<Window title="engineer at leovegas" position={{ centered: true }}>
@@ -141,7 +141,7 @@ import '../styles/global.css';
 			<!-- Context Menu -->
 			<ContextMenu />
 
-			<Window title="get info" position={{ centered: true }} isOpen isSecondary isSelected>
+			<Window title="get info" position={{ centered: true }} >
 				<GetInfo />
 			</Window>
 			<Window title="wallpapers" position={{ centered: true }}>
@@ -275,7 +275,7 @@ import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorag
 		document.querySelectorAll('[data-file-id]').forEach(item => item.classList.remove('selected'));
 		hideContextMenu(contextmenu);
 
-		console.log('Current target', target);
+		//console.log('Current target', target);
 		
 
 		if (desktopItem) desktopItem.classList.add('selected');
@@ -296,10 +296,27 @@ import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorag
 		const welcomeButton = target?.closest('[data-button-id="welcome-continue"]');
 		const window = target?.closest('[data-window-id]');
 
-		// TODO: select highest z-index window (!closed) after closing another window.
-
 		if ((redTrafficLight || welcomeButton) && window) {
 			window.classList.add('closed');
+
+			let openWindows: Element[] = [];
+			let topWindow: HTMLElement | null = null;
+			let highestZIndex = Number.NEGATIVE_INFINITY;
+
+			Array.from(document.querySelectorAll('[data-window-id]')).forEach(element => {
+				const win = element as HTMLElement
+				if (!win.classList.contains('closed')) {
+					openWindows.push(win);
+					const zIndex = parseInt(win.style.zIndex, 10) || 0;
+					if (zIndex > highestZIndex) {
+						highestZIndex = zIndex;
+						topWindow = win;
+					};
+				}
+			});
+
+			if (openWindows.length === 1) openWindows[0].classList.add('selected');
+			if (topWindow) (topWindow as HTMLElement).classList.add('selected');
 		}
 	})
 
