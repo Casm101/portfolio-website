@@ -12,12 +12,13 @@ import SimpleFinder from '../components/Windows/SimpleFinder.astro';
 import Welcome from '../components/Windows/Welcome.astro';
 import TextFile from '../components/Windows/TextFile.astro';
 import Wallpapers from '../components/Windows/Wallpapers.astro';
+import GetInfo from '../components/Windows/GetInfo.astro';
 
 import '../styles/global.css';
 ---
 
 <Layout background="">
-	<BootScreen />
+	<!-- <BootScreen /> -->
 	<div class="toolBar-styled">
 		<p>Christian Smith Mantas</p>
 		<Clock />
@@ -56,9 +57,9 @@ import '../styles/global.css';
 				]} />
 			</Window>
 
-			<Window title="welcome" position={{ centered: true }} isOpen isSecondary isSelected>
+			<!-- <Window title="welcome" position={{ centered: true }} isOpen isSecondary isSelected>
 				<Welcome />
-			</Window>
+			</Window> -->
 			
 			<!-- Work experience -->
 			<Window title="engineer at leovegas" position={{ centered: true }}>
@@ -140,6 +141,9 @@ import '../styles/global.css';
 			<!-- Context Menu -->
 			<ContextMenu />
 
+			<Window title="get info" position={{ centered: true }} isOpen isSecondary isSelected>
+				<GetInfo />
+			</Window>
 			<Window title="wallpapers" position={{ centered: true }}>
 				<Wallpapers />
 			</Window>
@@ -234,8 +238,10 @@ import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorag
 	};
 
 	const handleContextMenuClick = (id: string) => {
+		console.log('Got here with ID', id);
+		if (id === 'fullscreen') toggleFullscreen();
 		if (id === 'wallpapers') onDesktopItemDblClick('wallpapers');
-		if (id === 'fullscreen') toggleFullscreen()
+		if (id === 'get-info') onDesktopItemDblClick('get-info');
 	};
 
 	const hideContextMenu = (menu: HTMLElement) => {
@@ -263,17 +269,23 @@ import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorag
 		const wallpaperSelector = target?.closest('[data-wallpaper]');
 
 		const contextmenu = document.querySelector('[data-context-menu]') as HTMLElement;
-		const contentMenuItem = document.querySelector('[data-context-id]') as HTMLElement;
 
 		document.querySelectorAll('[data-desktop-item]').forEach(item => item.classList.remove('selected'));
 		document.querySelectorAll('[data-window-id]').forEach(item => item.classList.remove('selected'));
 		document.querySelectorAll('[data-file-id]').forEach(item => item.classList.remove('selected'));
 		hideContextMenu(contextmenu);
 
+		console.log('Current target', target);
+		
+
 		if (desktopItem) desktopItem.classList.add('selected');
 		if (finderFile) finderFile.classList.add('selected');
 		if (target === wallpaperSelector) changeWallpaper(wallpaperSelector.getAttribute('src') as string);
-		if (target === contentMenuItem) handleContextMenuClick(contentMenuItem.getAttribute('data-context-id') as string);
+
+		// TODO: fix all this crap
+		if (target.getAttribute('[data-context-id]')) {
+			handleContextMenuClick(target.getAttribute('data-context-id') as string);
+		}
 		if (window) {
 			window.classList.add('selected');
 			window.style.zIndex = String(++topZIndex);

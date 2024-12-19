@@ -1,0 +1,112 @@
+<div class="get-info-window-styled">
+  <div class="get-info-content">
+    <img src="/astro-logo.webp" alt="Astro Framework Logo">
+    <div class="content-header">
+      <h2 class="title">Portfolio Site</h2>
+      <p class="subtitle">Home VPS, Dec 2024</p>
+    </div>
+    <div class="content-body">
+      <div class="content-item">
+        <div class="item-key">Chip</div>
+        <div class="item-value">Intel i5</div>
+      </div>
+      <div class="content-item">
+        <div class="item-key">Storage</div>
+        <div class="item-value">248GB SSD</div>
+      </div>
+      <div class="content-item">
+        <div class="item-key">Memory</div>
+        <div class="item-value">10GB</div>
+      </div>
+      <div class="content-item">
+        <div class="item-key">Serial Number</div>
+        <div class="item-value">MH2DD64VCF</div>
+      </div>
+      <div class="content-item">
+        <div class="item-key">FrameworkOS</div>
+        <div class="item-value">Astro 5.0.5</div>
+      </div>
+    </div>
+    <div class="content-footer">
+      <p>™ and © 1998 - {new Date().getFullYear()}</p>
+      <p>All rights reserved.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .get-info-window-styled {
+    padding: 20px;
+
+    .get-info-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+
+      text-shadow: 0 1px 3px rgba(0,0,0,0.75);
+
+      img {
+        width: 150px;
+      }
+
+      .content-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .5rem;
+
+        .title {
+          font-size: 22px;
+          font-weight: 600;
+        }
+
+        .subtitle {
+          font-size: 10px;
+          color: #DDD;
+        }
+      }
+
+      .content-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .5rem;
+
+        .content-item {
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-start;
+          gap: 1rem;
+          width: 100%;
+        }
+
+        .item-key {
+          width: 90px;
+          flex-shrink: 0;
+          text-align: right;
+          color: #FFF;
+        }
+
+        .item-value {
+          font-weight: normal;
+          color: #DDD;
+        }
+      }
+
+      .content-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .25rem;
+
+        margin-bottom: 1.5rem;
+
+        p {
+          font-size: 12px;
+          color: #DDD;
+        }
+      }
+    }
+  }
+</style>
