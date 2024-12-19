@@ -281,9 +281,7 @@ import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorag
 		if (desktopItem) desktopItem.classList.add('selected');
 		if (finderFile) finderFile.classList.add('selected');
 		if (target === wallpaperSelector) changeWallpaper(wallpaperSelector.getAttribute('src') as string);
-
-		// TODO: fix all this crap
-		if (target.getAttribute('[data-context-id]')) {
+		if (target.getAttribute('data-context-id')) {
 			handleContextMenuClick(target.getAttribute('data-context-id') as string);
 		}
 		if (window) {
@@ -300,7 +298,9 @@ import { getLocalStorageItem, setLocalStorageItem } from "../scripts/localStorag
 
 		// TODO: select highest z-index window (!closed) after closing another window.
 
-		if ((redTrafficLight || welcomeButton) && window) window.classList.add('closed');
+		if ((redTrafficLight || welcomeButton) && window) {
+			window.classList.add('closed');
+		}
 	})
 
 	document.addEventListener('dblclick', event => {
